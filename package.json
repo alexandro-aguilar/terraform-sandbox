@@ -1,0 +1,13 @@
+{
+  "name": "terraform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "node transpile.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.23.1",
+    "typescript": "^5.5.4"
+  }
+}
