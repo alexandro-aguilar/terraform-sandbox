@@ -1,3 +1,10 @@
+locals {
+  domains = var.domains
+
+}
+
+
+
 
 ## :-START >> Lambda deploy
 
@@ -21,14 +28,14 @@ resource "aws_s3_bucket_acl" "lambda_bucket_acl" {
 data "archive_file" "example_lambda_archive" {
   type = "zip"
 
-  source_dir  = "../functions"
-  output_path = "../dist/lambda_function.zip"
+  source_dir  = "../.dist/bundle"
+  output_path = "../.dist/lambda_function.zip"
 }
 
 resource "aws_s3_object" "lambda_example" {
   bucket = aws_s3_bucket.lambda_bucket.id
 
-  key    = "lambda_function.zip"
+  key    = "handler.zip"
   source = data.archive_file.example_lambda_archive.output_path
 
   etag = filemd5(data.archive_file.example_lambda_archive.output_path)

@@ -9,3 +9,8 @@ variable "localstack_endpoint" {
   type        = string
   default     = "http://localhost.localstack.cloud:4566"
 }
+
+variable "domains" {
+  description = "The application domains"
+  type        = string
+}

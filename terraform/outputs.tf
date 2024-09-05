@@ -13,3 +13,6 @@ output "bucket" {
   value       = "${aws_s3_bucket.lambda_bucket.id}"
 }
 
+output "locals" {
+  value = "${local.domains}"
+}

@@ -11,7 +11,6 @@ function getDirectories(source) {
 }
 
 let domains = getDirectories('./src')
-console.log(domains)
 
 domains.forEach(domain => {
   let contexts = getDirectories(path.join("./src", domain))
