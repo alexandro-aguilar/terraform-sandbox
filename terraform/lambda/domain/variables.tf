@@ -23,12 +23,6 @@ variable "lambda_exec_role_arn" {
   type = string
 }
 
-
-
 variable "domain" {
   type = string
-}
-
-variable "contexts" {
-  type = list(string)
 }

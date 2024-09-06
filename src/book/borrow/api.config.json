@@ -1,0 +1,14 @@
+{
+    "events": {
+        "http": {
+            "path" : ["borrow", "{id}"], 
+            "method": "POST",
+            "integration": {
+                "type" : "AWS_PROXY",
+                "behavior": "WHEN_NO_TEMPLATES"
+            },
+            
+            "authorizer": ""
+        }
+    }
+}

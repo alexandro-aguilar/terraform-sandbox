@@ -1,5 +1,9 @@
 
 
+variable "module_name" {
+  type = string
+}
+
 variable "rest_api_id" {
   type = string
 }

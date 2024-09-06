@@ -1,14 +1,22 @@
 locals {
-  function_name = "${var.domain}_${var.context}"
+  api_config_file_path = "/src/${var.domain}/${var.context}/api.config.json"
+  api_config = jsondecode(file(local.api_config_file_path))
+}
+
+locals {
+  function_name = "${var.module_name}_${var.domain}_${var.context}"
   lambda_name = "${var.domain}.${var.context}"
   lambda_file_name = "${local.lambda_name}.zip"
   lambda_bundle = "../.dist/bundle/${local.lambda_file_name}"
 }
 
 resource "aws_api_gateway_resource" "domain_context_resource" {
+
+  for_each = toset(api_config.events.http.path)
+
   rest_api_id = var.rest_api_id
   parent_id   = var.rest_api_path_parentId
-  path_part   = var.context
+  path_part   = each.key
 }
 
 resource "aws_s3_object" "domain_context_object" {
@@ -33,18 +41,20 @@ resource "aws_lambda_function" "domain_context_lambda" {
 
 }
 
+# Triggers / Events
 
-resource "aws_api_gateway_method" "rest_api_httpPost_method" {
+## Http -begins
+resource "aws_api_gateway_method" "rest_api_http_method" {
   rest_api_id   = var.rest_api_id
   resource_id   = aws_api_gateway_resource.domain_context_resource.id
   http_method   = "POST"
   authorization = "NONE"
 }
 
-resource "aws_api_gateway_integration" "rest_api_httpPost_integration" {
+resource "aws_api_gateway_integration" "rest_api_http_integration" {
   rest_api_id = var.rest_api_id
   resource_id = aws_api_gateway_resource.domain_context_resource.id
-  http_method   = aws_api_gateway_method.rest_api_httpPost_method.http_method
+  http_method   = aws_api_gateway_method.rest_api_http_method.http_method
   
   type        = "AWS_PROXY"
   uri         = aws_lambda_function.domain_context_lambda.invoke_arn
@@ -61,6 +71,8 @@ resource "aws_lambda_permission" "apigw_lambda" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${var.rest_api_execution_arn}/*/*"
 }
+## Httpp -end
+
 
 
 resource "aws_cloudwatch_log_group" "cloudwatch-lambda-logs" {

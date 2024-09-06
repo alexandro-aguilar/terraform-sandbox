@@ -60,15 +60,12 @@ resource "aws_api_gateway_rest_api" "rest_api" {
 
 
 variable "domains" {
-  type = map(object({
-    domain = string
-    contexts = list(string)
-  }))
+  type = list(string)
 
-  default = {
-    "book" = {domain = "book", contexts = ["borrow","create"]}
-    "meeting_room" = {domain = "meeting_room", contexts = ["book","cancel", "update"]}
-  }
+  default = [
+    "book",
+    "meeting_room" //= {domain = "meeting_room", contexts = ["book","cancel", "update"]}
+  ]
 }
 
 
