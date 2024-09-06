@@ -1,4 +1,7 @@
 
+variable "module_name" {
+  type = string
+}
 
 variable "rest_api_id" {
   type = string
@@ -21,3 +24,11 @@ variable "lambda_exec_role_arn" {
 }
 
 
+
+variable "domain" {
+  type = string
+}
+
+variable "contexts" {
+  type = list(string)
+}

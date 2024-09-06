@@ -1,45 +1,53 @@
-resource "aws_api_gateway_resource" "book_borrow_resource" {
+locals {
+  function_name = "${var.domain}_${var.context}"
+  lambda_name = "${var.domain}.${var.context}"
+  lambda_file_name = "${local.lambda_name}.zip"
+  lambda_bundle = "../.dist/bundle/${local.lambda_file_name}"
+}
+
+resource "aws_api_gateway_resource" "domain_context_resource" {
   rest_api_id = var.rest_api_id
   parent_id   = var.rest_api_path_parentId
-  path_part   = "borrow"
+  path_part   = var.context
 }
 
-resource "aws_s3_object" "book_borrow_object" {
+resource "aws_s3_object" "domain_context_object" {
   bucket = var.bucket_for_code
 
-  key    = "book.borrow.zip"
-  source = "../.dist/bundle/book.borrow.zip"
+  key    = local.lambda_file_name
+  source = local.lambda_bundle
 
-  etag = filemd5("../.dist/bundle/book.borrow.zip")
+  etag = filemd5(local.lambda_bundle)
 }
 
-resource "aws_lambda_function" "book_borrow_lambda" {
-  function_name = "book_borrow"
+resource "aws_lambda_function" "domain_context_lambda" {
+  function_name = local.function_name
   handler       = "index.handler"
   runtime       = "nodejs20.x"
 
   s3_bucket = var.bucket_for_code
-  s3_key    = aws_s3_object.book_borrow_object.key
+  s3_key    = aws_s3_object.domain_context_object.key
 
-  source_code_hash = filebase64sha256("../.dist/bundle/book.borrow.zip")
+  source_code_hash = filebase64sha256(local.lambda_bundle)
   role          = var.lambda_exec_role_arn
 
 }
 
+
 resource "aws_api_gateway_method" "rest_api_httpPost_method" {
   rest_api_id   = var.rest_api_id
-  resource_id   = aws_api_gateway_resource.book_borrow_resource.id
+  resource_id   = aws_api_gateway_resource.domain_context_resource.id
   http_method   = "POST"
   authorization = "NONE"
 }
 
 resource "aws_api_gateway_integration" "rest_api_httpPost_integration" {
   rest_api_id = var.rest_api_id
-  resource_id = aws_api_gateway_resource.book_borrow_resource.id
+  resource_id = aws_api_gateway_resource.domain_context_resource.id
   http_method   = aws_api_gateway_method.rest_api_httpPost_method.http_method
   
   type        = "AWS_PROXY"
-  uri         = aws_lambda_function.book_borrow_lambda.invoke_arn
+  uri         = aws_lambda_function.domain_context_lambda.invoke_arn
 
   integration_http_method = "POST"
 
@@ -49,14 +57,14 @@ resource "aws_api_gateway_integration" "rest_api_httpPost_integration" {
 resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.book_borrow_lambda.function_name
+  function_name = aws_lambda_function.domain_context_lambda.function_name
   principal     = "apigateway.amazonaws.com"
-  #source_arn    = "${aws_api_gateway_rest_api.rest_api.execution_arn}/*/*"
   source_arn    = "${var.rest_api_execution_arn}/*/*"
 }
 
 
 resource "aws_cloudwatch_log_group" "cloudwatch-lambda-logs" {
-  name = "/aws/lambda/${aws_lambda_function.book_borrow_lambda.function_name}"
+  name = "/aws/lambda/${aws_lambda_function.domain_context_lambda.function_name}"
   retention_in_days = 30
 }
+

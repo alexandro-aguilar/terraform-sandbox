@@ -58,10 +58,30 @@ resource "aws_api_gateway_rest_api" "rest_api" {
 ############################################
 # Include modules
 
-module "book" {
-  source = "../src/book"
+
+variable "domains" {
+  type = map(object({
+    domain = string
+    contexts = list(string)
+  }))
+
+  default = {
+    "book" = {domain = "book", contexts = ["borrow","create"]}
+    "meeting_room" = {domain = "meeting_room", contexts = ["book","cancel", "update"]}
+  }
+}
+
+
+module "domain-modules" {
+
+  for_each = var.domains
+
+  source = "./lambda/domain"
 
   module_name = var.module_name
+  
+  domain = each.value.domain
+  contexts = each.value.contexts
   
   rest_api_id = aws_api_gateway_rest_api.rest_api.id
   rest_api_execution_arn   = "${aws_api_gateway_rest_api.rest_api.execution_arn}/*/*"
