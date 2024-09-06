@@ -4,15 +4,20 @@ const path = require('path');
 const fs = require('fs');
 
 const domain = process.argv[2];
-const event = process.argv[3];
-// && zip -r  ../../../dist/books/borrow.zip
+const context = process.argv[3];
 
-const sourceDir = path.join(__dirname, "functions", domain, event);
-const outputDir = path.join(__dirname, ".dist", domain, event);
+const sourceDir = path.join(__dirname, "src", domain, context);
+const bundleDir = path.join(__dirname, ".dist", "bundle");
+const outputDir = path.join(__dirname, ".dist", "src", domain, context);
 
 // Ensure the output directory exists
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
+}
+
+// Ensure the bundle directory exists
+if (!fs.existsSync(bundleDir)) {
+  fs.mkdirSync(bundleDir, { recursive: true });
 }
 
 // Transpile and bundle the TypeScript files
@@ -28,6 +33,6 @@ esbuild.build({
 
   // Zip the output for Lambda
   console.log('Zipping the output...');
-  execSync(`zip -r ${path.join(outputDir, "bundle.zip")} ${outputDir}`, { stdio: 'inherit' });
+  execSync(`zip -r ${path.join(bundleDir, `${domain}.${context}.zip`)} ${outputDir}`, { stdio: 'inherit' });
   console.log('ZIP file created successfully.');
 }).catch(() => process.exit(1));

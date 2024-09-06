@@ -1,6 +1,11 @@
 **/.DS_Store
+**/*.zip
+
 node_modules/
-dist/
-*.zip
+
+.dist/
 .terraform/
 .eslintrs.js
+
+**/*.tfstate
+**/*.tfstate.backup
