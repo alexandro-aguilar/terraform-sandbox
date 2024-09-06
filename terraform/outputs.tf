@@ -5,14 +5,14 @@
 
 output "api_gateway_id" {
   description = "The API Gateway id"
-  value       = "${aws_api_gateway_rest_api.example_api.id}"
+  value       = "${aws_api_gateway_rest_api.rest_api.id}"
 }
 
 output "bucket" {
   description = "The bucket id"
-  value       = "${aws_s3_bucket.lambda_bucket.id}"
+  value       = "${aws_s3_bucket.bucket_for_code.id}"
 }
 
-output "locals" {
-  value = "${local.domains}"
-}
+# output "locals" {
+#   value = "${local.domains}"
+# }
