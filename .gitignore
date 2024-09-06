@@ -7,3 +7,5 @@ node_modules/
 .terraform/
 .eslintrs.js
 
+**/*.tfstate
+**/*.tfstate.backup
