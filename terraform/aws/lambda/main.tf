@@ -1,24 +1,23 @@
-
-
-locals {
-  api_config_file_path = "/src/${var.domain}/api.config.json"
-  api_config = jsondecode(file(local.api_config_file_path))
-}
-
-
-
 resource "aws_api_gateway_resource" "api_domain_path_resource" {
   rest_api_id = var.rest_api_id
   parent_id   = var.rest_api_path_parentId
-  path_part   = local.api_config.path
+  path_part   =  var.domain.path
 }
 
-module "domain_context" {
-  for_each = toset(local.api_config.contexts)
 
-  source = "./context"
+locals {
+  contexts = {for context in var.domain.contexts : context.id => context}
+}
+
+
+module "domain_context" {
+  for_each = local.contexts
+
+  source = "./events"
+
   module_name = var.module_name 
-  domain = var.domain
+  
+  domain_id = var.domain.id
   context = each.value
 
   rest_api_id = var.rest_api_id
@@ -34,3 +33,11 @@ output "api_domain_path_resource_id" {
   value = aws_api_gateway_resource.api_domain_path_resource.id
 }
 
+output "domain" {
+  value = var.domain
+}
+
+
+output "last" {
+  value = module.domain_context
+}

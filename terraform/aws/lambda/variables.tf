@@ -1,8 +1,13 @@
 
-
 variable "module_name" {
   type = string
 }
+
+
+variable "domain" {
+  
+}
+
 
 variable "rest_api_id" {
   type = string
@@ -23,15 +28,3 @@ variable "bucket_for_code" {
 variable "lambda_exec_role_arn" {
   type = string
 }
-
-
-variable "domain" {
-  type = string
-}
-
-variable "context" {
-  type = string
-}
-
-
-

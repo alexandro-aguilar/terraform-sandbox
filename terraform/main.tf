@@ -2,9 +2,9 @@
 # Bucket to code deploy 
 
 resource "random_string" "bucket_name_postfix" {
-  length = 8
-  lower  = true
-  upper = false
+  length  = 8
+  lower   = true
+  upper   = false
   special = false
 }
 
@@ -27,8 +27,8 @@ resource "aws_iam_role" "role_lambda_exec" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
-        Effect    = "Allow"
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
         Principal = {
           Service = "lambda.amazonaws.com"
         }
@@ -48,43 +48,38 @@ resource "aws_api_gateway_rest_api" "rest_api" {
   description = "API Gateway for ${var.module_name}"
 }
 
-
-# resource "aws_api_gateway_deployment" "rest_api_stage" {
-#   depends_on = [aws_api_gateway_integration.lambda_integration]
-#   rest_api_id = aws_api_gateway_rest_api.rest_api.id
-#   stage_name  = var.stage
-# }
-
 ############################################
 # Include modules
 
+module "app" { source = "../src" }
+#module "meetingsRoom" { source = "../src/meeting_room" }
 
-variable "domains" {
-  type = list(string)
+# Consolidate all domains into a single map
+# locals {
+#   domains = {
+#     "books" = module.books.config,
+#     // "meetingsRoom" = module.meetingsRoom.config 
+#   } 
+# }
 
-  default = [
-    "book",
-    "meeting_room" //= {domain = "meeting_room", contexts = ["book","cancel", "update"]}
-  ]
-}
+module "aws-services" {
+  for_each = module.app.config.domains
 
-
-module "domain-modules" {
-
-  for_each = var.domains
-
-  source = "./lambda/domain"
+  source = "./aws/lambda" 
 
   module_name = var.module_name
-  
-  domain = each.value.domain
-  contexts = each.value.contexts
-  
-  rest_api_id = aws_api_gateway_rest_api.rest_api.id
-  rest_api_execution_arn   = "${aws_api_gateway_rest_api.rest_api.execution_arn}/*/*"
-  rest_api_path_parentId   = aws_api_gateway_rest_api.rest_api.root_resource_id
 
-  bucket_for_code = aws_s3_bucket.bucket_for_code.bucket
+  domain = each.value
+
+  rest_api_id            = aws_api_gateway_rest_api.rest_api.id
+  rest_api_execution_arn = "${aws_api_gateway_rest_api.rest_api.execution_arn}/*/*"
+  rest_api_path_parentId = aws_api_gateway_rest_api.rest_api.root_resource_id
+
+  bucket_for_code      = aws_s3_bucket.bucket_for_code.bucket
   lambda_exec_role_arn = aws_iam_role.role_lambda_exec.arn
-  
 }
+
+
+  output "domains" {
+    value = module.aws-services
+  }
