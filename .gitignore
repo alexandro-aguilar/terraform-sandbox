@@ -1,11 +1,21 @@
 **/.DS_Store
 **/*.zip
 
-node_modules/
-
-.dist/
-.terraform/
-.eslintrs.js
+**/.dist/
+**/.terraform/
+**/.eslintrs.js
 
 **/*.tfstate
 **/*.tfstate.backup
+
+**/*.d.ts
+**/*.js
+**/node_modules
+**/cdktf.out
+**/cdktf.log
+**/*terraform.*.tfstate*
+**/.gen
+**/.terraform
+**/tsconfig.tsbuildinfo
+**/!jest.config.js
+**/!setup.js
