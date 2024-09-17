@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "node transpile.js"
+    "build": "node transpile.js",
+    "build-all": "node transpile-all.js"
   },
   "license": "MIT",
   "devDependencies": {
