@@ -3,6 +3,14 @@ const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
+const length = process.argv.length;
+
+if(length < 4 ){
+  console.log("Parameters are missing");
+  console.log("Usage: yarn transpile.js <domain> <context>");
+  console.log("Example: yarn transpile.js book borrow");
+  process.exit(1);
+}
 const domain = process.argv[2];
 const context = process.argv[3];
 

@@ -15,7 +15,6 @@ let domains = getDirectories('./src')
 domains.forEach(domain => {
   let contexts = getDirectories(path.join("./src", domain))
   contexts.forEach(context => {
-    console.log(`npm run build -- ${domain} ${context}`);
-    execSync(`npm run build -- ${domain} ${context}`, { stdio: 'inherit' });
+    execSync(`yarn run build -- ${domain} ${context}`, { stdio: 'inherit' });
   })
 })
