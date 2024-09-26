@@ -7,8 +7,53 @@
     "build-all": "node transpile-all.js"
   },
   "license": "MIT",
+  
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.651.1",
+    "@aws-sdk/client-secrets-manager": "^3.651.1",
+    "@aws-sdk/client-sqs": "^3.651.1",
+
+    "@middy/core": "^5.5.0",
+    "@middy/event-normalizer": "^5.5.0",
+    "@middy/http-json-body-parser": "^5.5.0",
+    "@middy/sqs-partial-batch-failure": "^5.5.0",
+
+    "camelcase-keys-deep": "0.1.0",
+    "inversify": "^6.0.2",
+    "joi": "^17.13.3",
+    "pg": "^8.13.0",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20",
+    "typeorm-naming-strategies": "^4.1.0",
+    "uuid": "^10.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "devDependencies": {
+    
+    "@types/aws-lambda": "^8.10.145",
+    "@types/camelcase-keys-deep": "^0.1.2",
+
+    "@types/node": "^22.5.5",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
+    "@typescript-eslint/parser": "^8.6.0",
+    
     "esbuild": "^0.23.1",
-    "typescript": "^5.5.4"
+    "esbuild-node-externals": "^1.14.0",
+
+    "typescript": "^5.6.2",
+    "eslint": "^9.10.0",
+
+    "jest": "29.7.0",
+    "ts-jest": "29.2.5",
+    "jest-esbuild": "0.3.0",
+    "@jest/globals": "29.7.0",
+    "@types/jest": "29.5.3",
+
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
   }
+
 }

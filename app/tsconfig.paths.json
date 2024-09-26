@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@commons/*": [
+        "src/common/*",
+      ],
+      "@utils/*": [
+        "src/common/utils/*",
+      ],
+      "@modules/*": [
+        "src/module/*",
+      ],
+    }
+  }
+}

@@ -1,0 +1,38 @@
+// {
+//     "version": "0.2.0",
+//     "configurations": [
+//       {
+//         "type": "node",
+//         "request": "launch",
+//         "name": "Launch CDKTF",
+//         "skipFiles": ["<node_internals>/**"],
+//         "program": "${workspaceFolder}/iac/src/main.ts",
+//         "args": ["synth"],
+//         "sourceMaps": true,
+//         "outFiles": ["${workspaceFolder}/iac/dist/**/*.js"]
+//       }
+//     ]
+//   }
+
+
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch CDKTF App",
+        "program": "${workspaceFolder}/iac/src/main.ts",
+        "preLaunchTask": "tsc: build - iac",
+        "outFiles": ["${workspaceFolder}/iac/dist/**/*.js"],
+        "sourceMaps": true,
+        "cwd": "${workspaceFolder}/iac",
+        "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+        "env": {
+          "NODE_ENV": "development"
+        }
+      }
+    ]
+  }
+  
+  
