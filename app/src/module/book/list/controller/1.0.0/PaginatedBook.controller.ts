@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import  schema  from './PaginatedBookSchema';
+import schema from './PaginatedBookSchema';
 import { inject, injectable } from 'inversify';
 import TYPES from '../../TYPES';
 import Validator from '@utils/request/Validator';
@@ -33,8 +33,9 @@ export namespace controller {
     }
 
     protected async run(port?: APIGatewayProxyEvent): Promise<PaginationResponseDTO<Book>> {
-      console.log('ApiGatewayController1_0_0', port);
-      const books: PaginationResponseDTO<Book> = await this.adapter.execute(new PaginationQueryDTO({ pageNumber: port.queryStringParameters?.pn, size: port.queryStringParameters?.ps }));
+      console.log('PaginatedBookController1_0_0', port);
+      const books: PaginationResponseDTO<Book> = await this.adapter.execute(
+        new PaginationQueryDTO({ pageNumber: port.queryStringParameters?.pn, size: port.queryStringParameters?.ps }));
       return books;
     }
   }

@@ -4,14 +4,14 @@ import TYPES from '../TYPES';
 import { inject, injectable } from 'inversify';
 import PaginationQueryDTO from'@commons/domain/dto/PaginationQueryDTO';
 
-import PaginatedBooksBaseUseCase from '../common/PaginatedBooksBaseUseCase';
 import FindManyPaginatedBaseRepositoryResponse from '@commons/domain/repository/FindManyPaginatedBaseRepositoryResponse';
 import Book from '../entity/Book';
 import Repository from '@commons/domain/repository/Repository';
+import UseCase from '@commons/useCase/UseCase';
 
 
 @injectable()
-export default class PaginatedBooksUseCase implements PaginatedBooksBaseUseCase {
+export default class PaginatedBooksUseCase implements  UseCase<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>> {
   constructor(
     @inject(TYPES.PaginatedBooksRepository) private repository: Repository<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>>
   ) { }

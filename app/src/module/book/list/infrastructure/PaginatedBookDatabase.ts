@@ -8,12 +8,12 @@ import FindManyPaginatedBaseRepositoryResponse from '@commons/domain/repository/
 import DBConnectionManager from '@commons/utils/database/DBConnectionManager';
 
 import Book from '../entity/Book';
-import PaginatedBooksBaseUseCase from '../common/PaginatedBooksBaseUseCase';
+import UseCase from '@commons/useCase/UseCase';
 
   @injectable()
-  export default class PaginatedBooksDatabaseManager implements PaginatedBooksBaseUseCase {
+  export default class PaginatedBooksDatabaseManager implements  UseCase<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>> {
     constructor(
-      @inject(TYPES.PaginatedBooksUseCase) private usecase: PaginatedBooksBaseUseCase,
+      @inject(TYPES.PaginatedBooksUseCase) private usecase:  UseCase<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>>,
       @inject(TYPES.DBConnectionManager) private dbConnectionManager: DBConnectionManager,
     ) { }
 

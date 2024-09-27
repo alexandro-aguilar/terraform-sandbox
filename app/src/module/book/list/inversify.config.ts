@@ -35,8 +35,8 @@ container.bind<Container>(Container).toConstantValue(container);
 
 // Versioning
 // @see Version handler middleware
-container.bind(TYPES.Default).to(controller_v1.PaginatedBook);
-container.bind(TYPES['1.0.0']).to(controller_v1.PaginatedBook);
+container.bind(TYPES['version@*.*.*']).to(controller_v1.PaginatedBook);
+container.bind(TYPES['version@1.0.0']).to(controller_v1.PaginatedBook);
 
 container.bind<SecretsBase>(TYPES.SecretsManager).to(SecretsManager);
 container.bind(TYPES.ApiGatewayResultMapper).to(APIGatewayResultMapperService);

@@ -38,7 +38,6 @@ class MyStack extends TerraformStack {
     // new LocalIaCProvider().setStack(this)
 
     let runtimeEnv: IaCRuntime = new IaCRuntime()
-    
 
     runtimeEnv.lambdaExecutionRoleArn = this.setLambdaExecutionRoleArn(appConfig);
     let { apiGatewayId, apiGatewayRootResourceId } = this.setApiGateway(appConfig);
@@ -163,10 +162,9 @@ class MyStack extends TerraformStack {
       s3Key: s3ObjectForBundle.key,
 
       handler: 'index.main',
-      runtime: 'nodejs18.x',
-      // filename: bundlePath, // Este archivo debe contener tu código empaquetado
-      sourceCodeHash: `\${filebase64sha256("${bundlePath}")}`, // Cambia esto por el hash de tu archivo zip
-      role: runtimeEnv.lambdaExecutionRoleArn // Reemplaza con el ARN de tu rol Lambda
+      runtime: process.env.LAMBDA_RUNTIME ?? "nodejs18.x",
+      sourceCodeHash: `\${filebase64sha256("${bundlePath}")}`,
+      role: runtimeEnv.lambdaExecutionRoleArn
       , environment: {
         variables: {
           STAGE: appConfig.stage,
