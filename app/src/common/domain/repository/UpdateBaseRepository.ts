@@ -2,10 +2,11 @@ import 'reflect-metadata';
 import { injectable } from 'inversify';
 import { UpdateQueryBuilder } from 'typeorm';
 import camelcaseKeysDeep from 'camelcase-keys-deep';
-import HttpStatusCode from '../../../../shared/enums/HttpStatusCode';
-import ErrorCode from '../../../../shared/error/ErrorCode';
-import Warning from '../../../../shared/error/Warning';
-import PostgresSQLErrorCodes from '../../../../shared/enums/PostgrestSQLErrorCodes';
+
+import HttpStatusCode from '../../enums/HttpStatusCode';
+import ErrorCode from '../../error/ErrorCode';
+import Warning from '../../error/Warning';
+import PostgresSQLErrorCodes from '../../enums/PostgresSQLErrorCodes';
 import Repository from './Repository';
 
 /**
@@ -13,10 +14,6 @@ import Repository from './Repository';
  * @template T
  * @implements Repository<T>
  * @description Base repository class to update one or many items
- * @author Daniel Campos
- * @created 2022-08-01
- * @updated 2022-10-18
- * @updatedBy Alexandro Aguilar
  */
 @injectable()
 export default abstract class UpdateBaseRepository<T> implements Repository<Partial<T>, T> {

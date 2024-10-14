@@ -30,4 +30,5 @@ export default abstract class BaseEntity {
 
   @Column('bool', { default: 'true' })
   active: boolean;
+
 }

@@ -2,20 +2,17 @@ import 'reflect-metadata';
 import Repository from './Repository';
 import { injectable } from 'inversify';
 import { InsertQueryBuilder } from 'typeorm';
-import PostgresSQLErrorCodes from 'src/utils/enums/postgresSQLErrorCodes';
-import HttpStatusCode from 'src/utils/enums/httpStatusCode';
-import ErrorCode from 'src/utils/error/errorCode';
-import Warning from 'src/utils/error/Warning';
-import Exception from 'src/utils/error/Exception';
-import QueryExecutionPlan from './QueryExecutionPlan';
-import EnvironmentHelper, { ApplicationMode } from 'src/utils/helpers/EnvironmentHelper';
+import PostgresSQLErrorCodes from '@utils/enums/postgresSQLErrorCodes';
+import HttpStatusCode from '@utils/enums/httpStatusCode';
+import ErrorCode from '@utils/error/errorCode';
+import Warning from '@utils/error/Warning';
+import Exception from '@utils/error/Exception';
 
 /**
  * @absract class CreateOneBaseRepository
  * @template T
  * @implements Repository<T>
  * @description Base repository class
- * @author Daniel Campos
  * @created 2022-08-01
  * @updated 2022-10-15
  * @updatedBy Alexandro Aguilar

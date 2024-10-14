@@ -9,7 +9,7 @@
       "@utils/*": [
         "src/common/utils/*",
       ],
-      "@modules/*": [
+      "@module/*": [
         "src/module/*",
       ],
     }

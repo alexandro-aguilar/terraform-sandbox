@@ -3,11 +3,11 @@ import Repository from './Repository';
 import { injectable } from 'inversify';
 import { UpdateQueryBuilder } from 'typeorm';
 import camelcaseKeysDeep from 'camelcase-keys-deep';
-import PostgresSQLErrorCodes from 'src/utils/enums/postgresSQLErrorCodes';
-import HttpStatusCode from 'src/utils/enums/httpStatusCode';
-import Exception from 'src/utils/error/Exception';
-import Warning from 'src/utils/error/Warning';
-import ErrorCode from 'src/utils/error/errorCode';
+import PostgresSQLErrorCodes from '@utils/enums/postgresSQLErrorCodes';
+import HttpStatusCode from '@utils/enums/httpStatusCode';
+import Exception from '@utils/error/Exception';
+import Warning from '@utils/error/Warning';
+import ErrorCode from '@utils/error/errorCode';
 
 /**
  * @absract class SoftDeleteBaseRepository

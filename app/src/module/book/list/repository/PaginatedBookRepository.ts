@@ -24,10 +24,10 @@ export default class PaginatedBooksRepository extends FindManyPaginateBaseReposi
     // console.log('CoupleFindPaginatedRepository buildQuery', port);
     const connection: DataSource | QueryRunner = await this.dbConnectionManager.getActiveConnection();
     const queryBuilder = connection.manager.createQueryBuilder()
-      .select('couple')
+      .select(['id','title', 'author', 'category'])
       .from(Book, 'book')
       .where('book.active = :active', { active: true })
-    if (port.order)
+    if (port?.order)
       queryBuilder.orderBy(`book.${port.order.field}`, port.order.direction);
     return queryBuilder;
   }

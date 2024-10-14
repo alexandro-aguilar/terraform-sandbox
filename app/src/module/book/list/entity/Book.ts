@@ -13,9 +13,9 @@ import { Column, Entity } from 'typeorm';
     @Column('varchar', { length: 256, default: '' })
     auhtor: string;
 
-
     @Column('varchar', { length: 256, default: '' })
     category: string;
+
 
     constructor(title: string, author: string, category: string) {
       super();

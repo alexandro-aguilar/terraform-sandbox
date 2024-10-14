@@ -4,7 +4,7 @@ import { injectable } from 'inversify';
 import PaginationQueryDTO from '@commons/domain/dto/PaginationQueryDTO';
 import FindManyPaginatedBaseRepositoryResponse from '@commons/domain/repository/FindManyPaginatedBaseRepositoryResponse';
 
-import Book from '../entity/Book';
+import Book from '@module/book/list/entity/Book';
 import Repository from '@commons/domain/repository/Repository';
 
   @injectable()

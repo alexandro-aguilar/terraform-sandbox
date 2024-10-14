@@ -18,7 +18,6 @@ import QueryExecutionPlan from './QueryExecutionPlan';
  * @template T
  * @implements Repository<T>
  * @description class to findmany items and paginate them
- * @author Daniel Campos
  * @created 2022-07-27
  * @updated 2022-10-21
  * @updatedBy Alexandro Aguilar

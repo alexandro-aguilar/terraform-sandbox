@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { injectable } from 'inversify';
 import { SelectQueryBuilder } from 'typeorm';
-import PostgresSQLErrorCodes from 'src/utils/enums/postgresSQLErrorCodes';
-import HttpStatusCode from 'src/utils/enums/httpStatusCode';
-import ErrorCode from 'src/utils/error/errorCode';
-import Warning from 'src/utils/error/Warning';
-import Exception from 'src/utils/error/Exception';
+import PostgresSQLErrorCodes from '@utils/enums/postgresSQLErrorCodes';
+import HttpStatusCode from '@utils/enums/httpStatusCode';
+import ErrorCode from '@utils/error/errorCode';
+import Warning from '@utils/error/Warning';
+import Exception from '@utils/error/Exception';
 
 /**
  * @absract class FindBaseRepository

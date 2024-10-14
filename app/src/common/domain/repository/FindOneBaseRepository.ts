@@ -2,11 +2,11 @@ import 'reflect-metadata';
 import { injectable } from 'inversify';
 import { EntityNotFoundError, SelectQueryBuilder } from 'typeorm';
 import Repository from './Repository';
-import HttpStatusCode from 'src/utils/enums/httpStatusCode';
-import PostgresSQLErrorCodes from 'src/utils/enums/postgresSQLErrorCodes';
-import Exception from 'src/utils/error/Exception';
-import Warning from 'src/utils/error/Warning';
-import ErrorCode from 'src/utils/error/errorCode';
+import HttpStatusCode from '@utils/enums/httpStatusCode';
+import PostgresSQLErrorCodes from '@utils/enums/postgresSQLErrorCodes';
+import Exception from '@utils/error/Exception';
+import Warning from '@utils/error/Warning';
+import ErrorCode from '@utils/error/errorCode';
 
 //const logger = LoggerFactory.getInstance();
 
@@ -15,10 +15,10 @@ import ErrorCode from 'src/utils/error/errorCode';
  * @template T
  * @implements Repository<T, Promise<U>>
  * @description Base repository class
- * @author Daniel Campos
+ * @author Alexandro Aguilar
  * @created 2022-07-27
  * @updated 2022-10-14
- * @updatedBy Alexandro Aguilar
+ * @updatedBy 
  */
 @injectable()
 export default abstract class FindOneBaseRepository<T, U> implements Repository<T, Promise<U>> {

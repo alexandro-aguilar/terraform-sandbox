@@ -1,6 +1,6 @@
-import Exception from 'src/utils/error/Exception';
-import ErrorCode from 'src/utils/error/errorCode';
-import HttpStatusCode from 'src/utils/enums/httpStatusCode';
+import Exception from '@utils/error/Exception';
+import ErrorCode from '@utils/error/errorCode';
+import HttpStatusCode from '@utils/enums/httpStatusCode';
 
 const normalizedRequestVersionHandlerMiddleware = (versions: Array<string>) => {
   const middlewareBefore = (request: any) => {

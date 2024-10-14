@@ -18,17 +18,15 @@ import Book from './entity/Book';
 import BookDto from './entity/BookDto';
 import BookMapper from './entity/BookMapper';
 
-import { adapter} from './adapter/PaginatedBooks.adapter';
+import { adapter} from './adapter/PaginatedBooksAdapter';
 import APIGatewayResultMapperService from '@commons/domain/mapper/APIGatewayResultMapperService';
 
 import PaginatedBooksDatabaseManager from './infrastructure/PaginatedBookDatabase';
 import PaginatedBooksUseCase from './usecase/PaginatedBookUseCase';
 // import PaginatedBooksRepository from './repository/PaginatedBookRepository';
-import PaginatedBooksInMemoryRepository from './repository/PaginatedBooksInMemoryRepository';
 
 import { controller as controller_v1 } from './controller/1.0.0/PaginatedBook.controller';
 import FindManyPaginatedBaseRepositoryResponse from '@commons/domain/repository/FindManyPaginatedBaseRepositoryResponse';
-import Repository from '@commons/domain/repository/Repository';
 
 const container: Container = new Container();
 container.bind<Container>(Container).toConstantValue(container);
@@ -48,7 +46,6 @@ container.bind<DBConnectionManager>(TYPES.DBConnectionManager).to(DBConnectionMa
 
 container.bind<UseCase<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>>>(TYPES.PaginatedBooksInfrastructure).to(PaginatedBooksDatabaseManager);
 container.bind<UseCase<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>>>(TYPES.PaginatedBooksUseCase).to(PaginatedBooksUseCase);
-container.bind<Repository<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>>>(TYPES.PaginatedBooksRepository).to(PaginatedBooksInMemoryRepository);
 
 container.bind<BaseMapper<Book, BookDto>>(TYPES.BookMapper).to(BookMapper);
 container.bind(TYPES.PaginatedBooksAdapter).to(adapter.PaginatedBooks);
