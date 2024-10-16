@@ -13,7 +13,9 @@ import Repository from '@commons/domain/repository/Repository';
 import FindManyPaginatedBaseRepositoryResponse from '@commons/domain/repository/FindManyPaginatedBaseRepositoryResponse'
 
 @injectable()
-export default class PaginatedBooksRepository extends FindManyPaginateBaseRepository<Book> implements Repository<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>> {
+export default class PaginatedBooksRepository 
+  extends FindManyPaginateBaseRepository<Book> 
+  implements Repository<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>> {
   constructor(
     @inject(TYPES.DBConnectionManager) private dbConnectionManager: DBConnectionManager
   ) {

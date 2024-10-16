@@ -11,7 +11,7 @@ import Book from '../entity/Book';
 import UseCase from '@commons/useCase/UseCase';
 
   @injectable()
-  export default class PaginatedBooksDatabaseManager implements  UseCase<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>> {
+  export default class PaginatedBooksDatabaseManager implements UseCase<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>> {
     constructor(
       @inject(TYPES.PaginatedBooksUseCase) private usecase:  UseCase<PaginationQueryDTO, Promise<FindManyPaginatedBaseRepositoryResponse<Book>>>,
       @inject(TYPES.DBConnectionManager) private dbConnectionManager: DBConnectionManager,
